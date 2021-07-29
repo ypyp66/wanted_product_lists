@@ -1,13 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { setItemToRecentList } from "services/localStorageWorker";
 
 class Card extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { cardId, title, brand, price } = this.props;
+    setItemToRecentList({ id: cardId, title, brand, price });
+  }
+
   render() {
     const { cardId, title, brand, price } = this.props;
     return (
-      <StyledLink to={`/product/${cardId}`}>
+      <StyledLink onClick={this.handleClick} to={`/product/${cardId}`}>
         <CardContainer>
           <Title>{title}</Title>
           <Brand>{brand}</Brand>
