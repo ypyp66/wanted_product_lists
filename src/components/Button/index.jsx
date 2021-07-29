@@ -1,7 +1,7 @@
-const { default: styled } = require('styled-components');
+const { default: styled } = require("styled-components");
 
 const Button = styled.button`
-  width: 50px;
+  width: ${(props) => (props ? props.width : "50px")};
   height: 30px;
   background-color: #ef9a9a;
   border-radius: 15px;
