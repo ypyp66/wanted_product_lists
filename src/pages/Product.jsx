@@ -20,4 +20,5 @@ class Product extends Component {
 
 Product.propTypes = {};
 
+// NOTE: withRouter 를 써야하는이유는?
 export default withRouter(Product);
