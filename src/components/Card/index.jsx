@@ -1,27 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 class Card extends Component {
   render() {
-    const { title, brand, price } = this.props;
+    const { cardId, title, brand, price } = this.props;
     return (
-      <CardContainer>
-        <Title>{title}</Title>
-        <Brand>{brand}</Brand>
-        <Price>
-          <strong>{price}</strong>원
-        </Price>
-      </CardContainer>
+      <StyledLink to={`/product/${cardId}`}>
+        <CardContainer>
+          <Title>{title}</Title>
+          <Brand>{brand}</Brand>
+          <Price>
+            <strong>{price}</strong>원
+          </Price>
+        </CardContainer>
+      </StyledLink>
     );
   }
 }
 
 Card.propTypes = {
+  cardId: PropTypes.number,
   title: PropTypes.string,
   brand: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
 };
+
+const StyledLink = styled(Link)`
+  color: black;
+  width: 220px;
+`;
 
 const CardContainer = styled.div`
   display: inline-block;
@@ -43,6 +52,10 @@ const Title = styled.h2`
   line-height: 18px;
   height: 36px;
   max-height: 36px;
+
+  :hover {
+    color: darkblue;
+  }
   /* -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; */
 `;
