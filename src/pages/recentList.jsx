@@ -38,24 +38,29 @@ const CenterDiv = styled.div`
 `;
 
 class RecentList extends Component {
+  _isMounted = false;
+
   state = {
     products: [],
     selectedBrands: [],
     isChecked: false,
     brandClick: false,
     brand: '',
-    sortKey: '', // '', recent, lowPrice
+    sortKey: '',
   };
 
+  
   componentDidMount() {
+    this._isMounted = true;
     const products = LSWorker.getRecentList();
-    this.setState({
+
+    this._isMounted && this.setState({
       products,
     });
   }
 
-  componentDidUpdate() {
-    console.log(this.state);
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleHideExceptItems = () => {
@@ -123,12 +128,14 @@ class RecentList extends Component {
           <CenterDiv>
             <CheckButton>
               <CenterDiv>
+                <label>
                 <input
                   type="checkbox"
                   value={isChecked}
                   onChange={this.handleHideExceptItems}
                 />
                 관심 없는 상품 숨기기
+                </label>
               </CenterDiv>
             </CheckButton>
             <SortFilter setSortKey={this.handleSortChange} />

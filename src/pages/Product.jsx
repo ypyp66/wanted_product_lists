@@ -13,6 +13,8 @@ import { getJsonData } from 'utils/getJsonData';
 import { getRandomInt } from 'utils/math';
 
 class Product extends Component {
+  _isMounted = false;
+  
   state = {
     products: [],
     id: null,
@@ -22,10 +24,11 @@ class Product extends Component {
   //products와 id 모두 받아와서 state에 저장
   //해당 상품 조회 이력 추가
   async componentDidMount() {
+    this._isMounted = true;
     const products = await getJsonData();
     const { id } = this.props.match.params;
     setItemToRecentList(products[id]);
-    this.setState({
+    this._isMounted && this.setState({
       products,
       id,
       isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
@@ -43,6 +46,10 @@ class Product extends Component {
       });
       setItemToRecentList(this.state.products[id]);
     }
+  }
+
+  componentWillUnmount(){
+    this._isMounted = false;
   }
 
   checkRandomProduct = () => {

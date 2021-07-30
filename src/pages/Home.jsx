@@ -17,17 +17,25 @@ const HeaderContainer = styled.div`
 `;
 
 class Home extends Component {
+  _isMounted = false;
+
   state = {
     products: [],
   };
 
   async componentDidMount() {
+    this._isMounted = true;
     const products = await getJsonData();
     // TODO: not-intertest 는 필터링한 다음에 set을 해줘야할까?
     // TODO: 어떻게 커스터마이징
+    this._isMounted &&
     this.setState({
       products,
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
