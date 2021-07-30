@@ -14,7 +14,7 @@ import { getRandomInt } from 'utils/math';
 
 class Product extends Component {
   _isMounted = false;
-  
+
   state = {
     products: [],
     id: null,
@@ -28,11 +28,12 @@ class Product extends Component {
     const products = await getJsonData();
     const { id } = this.props.match.params;
     setItemToRecentList(products[id]);
-    this._isMounted && this.setState({
-      products,
-      id,
-      isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
-    });
+    this._isMounted &&
+      this.setState({
+        products,
+        id,
+        isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
+      });
   }
 
   //id 변경 시 id 변경 감지하여 state update
@@ -48,7 +49,7 @@ class Product extends Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this._isMounted = false;
   }
 

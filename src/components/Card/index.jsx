@@ -120,6 +120,7 @@ const Price = styled.h3`
   color: #3e72fb;
   font-size: 13px;
   font-weight: 600;
+  margin-bottom: 0 !important;
   strong {
     font-size: 16px;
   }
