@@ -11,6 +11,7 @@ import {
 } from 'services/localStorageWorker';
 import { getJsonData } from 'utils/getJsonData';
 import { getRandomInt } from 'utils/math';
+import PAGE_TITLE from 'constants/pageTitle.js';
 
 class Product extends Component {
   _isMounted = false;
@@ -81,7 +82,7 @@ class Product extends Component {
       return (
         <ProductContainer>
           <HeaderContainer>
-            <PageTitle title="상품 상세 페이지" />
+            <PageTitle title={PAGE_TITLE.PRORUDCT_DETAIL} />
           </HeaderContainer>
           <ItemContainer>
             <Title>{title}</Title>
@@ -102,7 +103,7 @@ class Product extends Component {
               </NotInterestedButton>
             </ButtonContainer>
           </ItemContainer>
-          <LinkButton title="조회 이력" to="/recentList" />
+          <LinkButton title={PAGE_TITLE.RECENT_LIST} to="/recentList" />
         </ProductContainer>
       );
     }

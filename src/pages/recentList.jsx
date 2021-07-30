@@ -8,6 +8,7 @@ import BrandLists from 'components/BrandLists/index';
 import SortFilter from 'components/SortFilter/index.jsx';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
+import PAGE_TITLE from 'constants/pageTitle.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -123,7 +124,7 @@ class RecentList extends Component {
     return (
       <RecentListContainer>
         <HeaderContainer>
-          <PageTitle title="최근 조회 이력" />
+          <PageTitle title={PAGE_TITLE.RECENT_LIST} />
         </HeaderContainer>
         <FilterContainer>
           <Button width="80px" onClick={this.toggleBrandLists}>
@@ -150,9 +151,8 @@ class RecentList extends Component {
           setSelectedBrands={this.setSelectedBrands}
           selectedBrand={selectedBrands}
         />
-
         <CardList cards={products} />
-        <LinkButton title="상품 목록" to="/" />
+        <LinkButton title={PAGE_TITLE.HOME} to="/" />
       </RecentListContainer>
     );
   }
