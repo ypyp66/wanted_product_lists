@@ -16,12 +16,6 @@ const HeaderContainer = styled.div`
   margin-top: 24px;
 `;
 
-const RandomProductButton = styled(Button)`
-  width: 100px;
-  background-color: pink;
-  margin-top: 24px;
-`;
-
 class Home extends Component {
   state = {
     products: [],
@@ -41,11 +35,6 @@ class Home extends Component {
       <HomeContainer>
         <HeaderContainer>
           <PageTitle title="상품 목록" />
-          <RandomProductButton
-            onClick={() => console.log('랜덤상품조회 클릭!')}
-          >
-            랜덤 상품 조회
-          </RandomProductButton>
         </HeaderContainer>
 
         <CardList cards={this.state.products} />

@@ -14,15 +14,26 @@ const RecentListContainer = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  margin-left: 24px;
-  margin-top: 24px;
+  margin: 24px 24px 0 24px;
 `;
 
-const FilterConatiner = styled(HeaderContainer)`
+const FilterContainer = styled(HeaderContainer)`
   display: flex;
+  justify-content: space-between;
+
   button + button {
     margin-left: 20px;
   }
+`;
+
+const CheckButton = styled(Button)`
+  margin-right: 24px;
+  padding: 0 12px;
+`;
+
+const CenterDiv = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 class RecentList extends Component {
@@ -104,28 +115,29 @@ class RecentList extends Component {
         <HeaderContainer>
           <PageTitle title="최근 조회 이력" />
         </HeaderContainer>
-        <FilterConatiner>
+        <FilterContainer>
           <Button width="80px" onClick={this.toggleBrandLists}>
             브랜드
           </Button>
-          <Button>
-            <label
-              style={{
-                display: 'flex',
-                width: '100%',
-              }}
-            >
-              <input
-                type="checkbox"
-                value={isChecked}
-                onChange={this.handleHideExceptItems}
-              />
-              관심 없는 상품 숨기기
-            </label>
-          </Button>
-          <SortFilter setSortKey={this.handleSortChange} />
-        </FilterConatiner>
-        <BrandLists brandClick={brandClick} setBrand={this.setBrand} />
+          <CenterDiv>
+            <CheckButton>
+              <CenterDiv>
+                <input
+                  type="checkbox"
+                  value={isChecked}
+                  onChange={this.handleHideExceptItems}
+                />
+                관심 없는 상품 숨기기
+              </CenterDiv>
+            </CheckButton>
+            <SortFilter setSortKey={this.handleSortChange} />
+          </CenterDiv>
+        </FilterContainer>
+        <BrandLists
+          brandClick={brandClick}
+          setBrand={this.setBrand}
+          selectedBrand={brandLists}
+        />
 
         <CardList
           cards={filteredProducts.length ? filteredProducts : products}
