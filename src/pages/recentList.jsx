@@ -75,14 +75,12 @@ class RecentList extends Component {
     const notInterested = LSWorker.getNotInterested();
     return sortProductByKey(
       products
-        .filter(product => {
-          if (!isChecked) return product;
-          return !notInterested.includes(product.id);
-        })
-        .filter(product => {
-          if (!brandLists.length) return product;
-          return brandLists.inclides(product.brand);
-        }),
+        .filter(product =>
+          !isChecked ? product : !notInterested.includes(product.id),
+        )
+        .filter(product =>
+          !brandLists.length ? product : brandLists.inclides(product.brand),
+        ),
       sortKey,
     );
   };
