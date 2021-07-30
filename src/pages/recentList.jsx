@@ -49,14 +49,14 @@ class RecentList extends Component {
     sortKey: '',
   };
 
-  
   componentDidMount() {
     this._isMounted = true;
     const products = LSWorker.getRecentList();
 
-    this._isMounted && this.setState({
-      products,
-    });
+    this._isMounted &&
+      this.setState({
+        products,
+      });
   }
 
   componentWillUnmount() {
@@ -87,7 +87,9 @@ class RecentList extends Component {
       });
     } else {
       this.setState({
-        selectedBrands: this.state.selectedBrands.filter((_, idx) => idx !== index),
+        selectedBrands: this.state.selectedBrands.filter(
+          (_, idx) => idx !== index,
+        ),
       });
     }
   };
@@ -106,7 +108,9 @@ class RecentList extends Component {
           !isChecked ? product : !notInterested.includes(product.id),
         )
         .filter(product =>
-          !selectedBrands.length ? product : selectedBrands.includes(product.brand),
+          !selectedBrands.length
+            ? product
+            : selectedBrands.includes(product.brand),
         ),
       sortKey,
     );
@@ -129,12 +133,12 @@ class RecentList extends Component {
             <CheckButton>
               <CenterDiv>
                 <label>
-                <input
-                  type="checkbox"
-                  value={isChecked}
-                  onChange={this.handleHideExceptItems}
-                />
-                관심 없는 상품 숨기기
+                  <input
+                    type="checkbox"
+                    value={isChecked}
+                    onChange={this.handleHideExceptItems}
+                  />
+                  관심 없는 상품 숨기기
                 </label>
               </CenterDiv>
             </CheckButton>
