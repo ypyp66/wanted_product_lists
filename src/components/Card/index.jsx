@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {
+  ChanelIcon,
   GucciIcon,
   LouisVuittonIcon,
   NikeIcon,
@@ -37,6 +38,8 @@ class Card extends Component {
                 <LouisVuittonIcon />
               ) : brand === '스톤아일랜드' ? (
                 <StoneIslandIcon />
+              ) : brand === '샤넬' ? (
+                <ChanelIcon />
               ) : (
                 <></>
               )}

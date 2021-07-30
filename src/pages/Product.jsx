@@ -63,7 +63,7 @@ class Product extends Component {
     ) {
       randomId = getRandomInt(0, 100);
     }
-    this.props.history.push(`${ROUTES.PRORUDCT}/${randomId}`);
+    this.props.history.push(`${ROUTES.PRODUCT}/${randomId}`);
   };
 
   onNotInterestedClick = () => {
