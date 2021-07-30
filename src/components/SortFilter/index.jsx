@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 const StyledSelect = styled.select`
   float: right;
+  height: fit-content;
 `;
 
 // 1. noValue => 정렬 초기화
@@ -13,10 +14,11 @@ class SortFilter extends Component {
   render() {
     return (
       <StyledSelect
-        onChange={({ target }) => this.props.setSortKey(target.value)}>
-        <option value=''>&nbsp; -- 정렬 --</option>
-        <option value='recent'>최근 조회순</option>
-        <option value='lowPrice'>낮은 가격순</option>
+        onChange={({ target }) => this.props.setSortKey(target.value)}
+      >
+        <option value="">&nbsp; -- 정렬 --</option>
+        <option value="recent">최근 조회순</option>
+        <option value="lowPrice">낮은 가격순</option>
       </StyledSelect>
     );
   }
