@@ -8,7 +8,6 @@ import BrandLists from 'components/BrandLists/index';
 import SortFilter from 'components/SortFilter/index.jsx';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
-import { filterProduct } from 'services/filterProduct.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -71,12 +70,26 @@ class RecentList extends Component {
     this.setState({ sortKey });
   };
 
-  render() {
-    const { products, isChecked, brandClick, sortKey, brandLists } = this.state;
-    const newProducts = sortProductByKey(
-      filterProduct(products, isChecked, brandLists),
+  filterProducts = () => {
+    const { products, isChecked, sortKey, brandLists } = this.state;
+    const notInterested = LSWorker.getNotInterested();
+    return sortProductByKey(
+      products
+        .filter(product => {
+          if (!isChecked) return product;
+          return !notInterested.includes(product.id);
+        })
+        .filter(product => {
+          if (!brandLists.length) return product;
+          return brandLists.inclides(product.brand);
+        }),
       sortKey,
     );
+  };
+
+  render() {
+    const { isChecked, brandClick } = this.state;
+    const products = this.filterProducts();
 
     return (
       <RecentListContainer>
@@ -106,7 +119,7 @@ class RecentList extends Component {
         </FilterConatiner>
         <BrandLists brandClick={brandClick} setBrand={this.setBrand} />
 
-        <CardList cards={newProducts} />
+        <CardList cards={products} />
         <LinkButton title="상품 목록" to="/" />
       </RecentListContainer>
     );
