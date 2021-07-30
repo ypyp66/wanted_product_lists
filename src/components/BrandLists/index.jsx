@@ -19,19 +19,21 @@ const BrandContainer = styled.ul`
 
 const CustomButton = styled(Button)`
   background-color: white;
+  border: 1px solid #61696c;
+  color: #61696c;
   border-radius: 20px;
-  box-shadow: 2px 2px 4px gray;
+  box-shadow: none;
   padding: 3px 10px;
 
   ${props =>
-    props.isselected
-      && css`
-        background-color: black;
-        color: white;
-        `}
-      
+    props.isselected &&
+    css`
+      border: 1px solid #074bf8;
+      color: #074bf8;
+    `}
+
   &:hover {
-    background-color: #E3E3E3;
+    background-color: #e3e3e3;
     color: black;
   }
 `;
@@ -62,7 +64,11 @@ export default class index extends Component {
       <BrandContainer>
         {brandClick && brandLists && (
           <>
-            <CustomButton onClick={this.handleClick} isselected={selectedBrand.length ? false : true} value="all">
+            <CustomButton
+              onClick={this.handleClick}
+              isselected={selectedBrand.length ? false : true}
+              value="all"
+            >
               전체 목록
             </CustomButton>
             {brandLists.map((brand, index) => (
@@ -77,7 +83,6 @@ export default class index extends Component {
             ))}
           </>
         )}
-
       </BrandContainer>
     );
   }
