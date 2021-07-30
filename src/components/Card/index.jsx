@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import {
   ChanelIcon,
@@ -82,6 +82,23 @@ const CardContainer = styled.div`
   h4 {
     margin-bottom: 8px;
   }
+
+  ${props =>
+    props.isnotinterested
+      ? css`
+          box-shadow: none;
+          h2,
+          h3,
+          h4 {
+            color: #61696c;
+          }
+          cursor: not-allowed;
+        `
+      : css`
+          :hover {
+            background-color: #f7f7f7;
+          }
+        `}
 `;
 
 const Divider = styled.div`
@@ -103,10 +120,6 @@ const Title = styled.h2`
   line-height: 18px;
   height: 36px;
   max-height: 36px;
-
-  :hover {
-    color: darkblue;
-  }
 `;
 
 const Brand = styled.div`

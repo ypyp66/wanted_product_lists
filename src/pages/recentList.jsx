@@ -11,11 +11,11 @@ import { sortProductByKey } from 'services/sortProductByKey.js';
 import SortFilter from 'components/SortFilter';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
+import Modal from 'Modals/Modal';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
   margin: auto;
-  background-color: #edf2ff;
 `;
 
 const HeaderContainer = styled.div`
@@ -49,7 +49,8 @@ class RecentList extends Component {
     isChecked: false,
     brandClick: false,
     brand: '',
-    sortKey: '',
+    sortKey: 'recent',
+    isModalShow: false,
   };
 
   componentDidMount() {
@@ -120,7 +121,7 @@ class RecentList extends Component {
   };
 
   render() {
-    const { isChecked, brandClick, selectedBrands } = this.state;
+    const { isChecked, brandClick, selectedBrands, sortKey } = this.state;
     const products = this.filterProducts();
 
     return (
@@ -135,7 +136,9 @@ class RecentList extends Component {
               isChecked={isChecked}
               handleHideExceptItems={this.handleHideExceptItems}
             />
-            <SortFilter setSortKey={this.handleSortChange} />
+            <Button onClick={() => this.setState({ isModalShow: true })}>
+              {sortKey === 'recent' ? '최근 조회 순' : '낮은 가격 순'}
+            </Button>
           </div>
         </FilterContainer>
         <BrandLists
@@ -145,6 +148,15 @@ class RecentList extends Component {
         />
         <CardList cards={products} />
         <LinkButton title={PAGE_TITLE.HOME} to={ROUTES.HOME} />
+        <Modal
+          show={this.state.isModalShow}
+          closeModal={() => this.setState({ isModalShow: false })}
+        >
+          <SortFilter
+            handleSortChange={this.handleSortChange}
+            closeModal={() => this.setState({ isModalShow: false })}
+          />
+        </Modal>
       </RecentListContainer>
     );
   }

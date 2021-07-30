@@ -89,7 +89,7 @@ class Product extends Component {
             <Title>{title}</Title>
             <Brand>{brand}</Brand>
             <Price>
-              <strong>{price}</strong>원
+              <strong>{price.toLocaleString()}</strong>원
             </Price>
             <ButtonContainer>
               <RandomProductButton onClick={this.checkRandomProduct}>

@@ -4,7 +4,7 @@ const sortProductByKey = (products, key) => {
     recent: () => products.reverse(),
     lowPrice: () => products.sort((a, b) => a.price - b.price),
   };
-  return filter[key]();
+  return key ? filter[key]() : filter['recent'];
 };
 
 export { sortProductByKey };
