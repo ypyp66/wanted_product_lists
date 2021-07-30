@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import CardList from 'components/CardList/index';
 import PageTitle from 'components/Text/pageTitle';
-import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import { getJsonData } from 'utils/getJsonData';
 import PAGE_TITLE from 'constants/pageTitle.js';
@@ -32,7 +31,9 @@ class Home extends Component {
     const products = await getJsonData();
     this._isMounted &&
       this.setState({
-        products: products.filter((product) => !notInterested.includes(product.id))
+        products: products.filter(
+          product => !notInterested.includes(product.id),
+        ),
       });
   }
 

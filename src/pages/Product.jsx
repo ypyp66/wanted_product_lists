@@ -63,7 +63,7 @@ class Product extends Component {
     ) {
       randomId = getRandomInt(0, 100);
     }
-    this.props.history.push(`${ROUTES.PRORUDCT}/${randomId}`);
+    this.props.history.push(`${ROUTES.PRODUCT}/${randomId}`);
   };
 
   onNotInterestedClick = () => {
@@ -76,7 +76,7 @@ class Product extends Component {
 
   render() {
     if (!this.state.products[this.state.id]) {
-      return <div>Loading</div>;
+      return <div></div>;
     } else {
       const { id, isNotInterested } = this.state;
       const { title, brand, price } = this.state.products[id];
@@ -130,7 +130,9 @@ const HeaderContainer = styled.div`
 const ItemContainer = styled.div`
   width: 50%;
   padding: 5%;
+  background-color: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
   border-radius: 5%;
   h2,
   h3,
@@ -170,23 +172,19 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
 `;
 const RandomProductButton = styled(Button)`
-  width: 100px;
-  background-color: white;
+  padding: 0 20px;
   margin-top: 24px;
-  box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
 `;
 const NotInterestedButton = styled(Button)`
-  width: 100px;
+  padding: 0 20px;
   margin-top: 24px;
-  background-color: white;
+
   ${props =>
-    props.isnotinterested
-      ? css`
-          color: darkgray;
-          cursor: default;
-          box-shadow: inset 5px 5px 10px #d9d9d9, inset -5px -5px 10px #ffffff;
-        `
-      : css`
-          box-shadow: 5px 5px 10px #d9d9d9, -5px -5px 10px #ffffff;
-        `};
+    props.isnotinterested &&
+    css`
+      border: 1px solid #61696c;
+      background-color: white;
+      color: #61696c;
+      cursor: default;
+    `};
 `;
