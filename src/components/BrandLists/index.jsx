@@ -7,6 +7,9 @@ const BrandContainer = styled.ul`
   margin-left: 24px;
   margin-top: 24px;
 
+  overflow-x: auto;
+  padding: 3px;
+
   option {
     box-shadow: 2px 2px 4px gray;
     border-radius: 20px;
@@ -24,6 +27,7 @@ export default class index extends Component {
   };
 
   componentDidMount() {
+    //중복처리
     this.setState({
       brandLists: [
         ...new Set(LSWorker.getRecentList().map((items) => items.brand)),
@@ -31,9 +35,8 @@ export default class index extends Component {
     });
   }
 
-  handleClick = (e) => {
-    console.log(e.target.value);
-    this.props.setBrand(e.target.value);
+  handleClick = ({ target }) => {
+    this.props.setBrand(target.value);
   };
 
   render() {

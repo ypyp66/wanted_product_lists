@@ -19,8 +19,7 @@ const HeaderContainer = styled.div`
 
 const FilterConatiner = styled(HeaderContainer)`
   display: flex;
-
-  Button + Button {
+  button + button {
     margin-left: 20px;
   }
 `;
@@ -29,9 +28,9 @@ class RecentList extends Component {
   state = {
     products: [],
     filteredProducts: [],
+    brandLists: [],
     isChecked: false,
     brandClick: false,
-    brand: "",
   };
 
   componentDidMount() {
@@ -44,13 +43,11 @@ class RecentList extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    if (prevState.brand !== "" && prevState.brand === this.state.brand) {
-      this.setState({
-        brand: "",
-        filteredProducts: [],
-      });
+    if (prevState.brandLists !== this.state.brandLists) {
+      this.handleFilterBrand();
       return;
     }
+
     console.log(this.state);
   }
 
@@ -63,22 +60,30 @@ class RecentList extends Component {
   };
 
   setBrand = (name) => {
-    this.setState({
-      brand: name,
-    });
-    this.handleFilterBrand(name);
+    const index = this.state.brandLists.indexOf(name);
+
+    if (index === -1) {
+      this.setState({
+        brandLists: [...this.state.brandLists, name],
+      });
+    } else {
+      this.setState({
+        brandLists: this.state.brandLists.filter((_, idx) => idx !== index),
+      });
+    }
   };
 
-  handleFilterBrand = (name) => {
+  handleFilterBrand = () => {
     this.setState({
       filteredProducts: this.state.products.filter(
-        (product) => product.brand === name
+        (product) => this.state.brandLists.indexOf(product.brand) !== -1
       ),
     });
   };
 
   render() {
-    const { isChecked, brandClick, products, filteredProducts } = this.state;
+    const { isChecked, brandClick, products, filteredProducts, brandLists } =
+      this.state;
     return (
       <RecentListContainer>
         <HeaderContainer>
@@ -92,6 +97,7 @@ class RecentList extends Component {
             <label
               style={{
                 display: "flex",
+                width: "100%",
               }}
             >
               <input
