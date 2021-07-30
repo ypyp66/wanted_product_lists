@@ -6,7 +6,7 @@ import Button from 'components/Button';
 const BrandContainer = styled.ul`
   display: inline-block;
   margin-left: 24px;
-  margin-top: 24px;
+  margin-top: 14px;
 
   overflow-x: auto;
   padding-bottom: 12px;

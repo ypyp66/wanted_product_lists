@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 const HideBoxContainer = styled(Button.withComponent('div'))`
+  min-width: 180px;
   font-size: 13px;
   margin-right: 24px;
   padding: 0 12px;

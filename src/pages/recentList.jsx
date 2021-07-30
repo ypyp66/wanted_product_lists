@@ -19,6 +19,10 @@ const HeaderContainer = styled.div`
   margin: 24px 24px 0 24px;
 `;
 
+const CustomButton = styled(Button)`
+  min-width: 80px;
+`;
+
 const FilterContainer = styled(HeaderContainer)`
   display: flex;
   justify-content: space-between;
@@ -122,9 +126,7 @@ class RecentList extends Component {
           <PageTitle title="최근 조회 이력" />
         </HeaderContainer>
         <FilterContainer>
-          <Button width="80px" onClick={this.toggleBrandLists}>
-            브랜드
-          </Button>
+          <CustomButton onClick={this.toggleBrandLists}>브랜드</CustomButton>
           <div>
             <HideCheckBox
               isChecked={isChecked}
