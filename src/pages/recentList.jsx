@@ -15,6 +15,7 @@ import ROUTES from 'constants/routesPath.js';
 const RecentListContainer = styled.div`
   max-width: 1080px;
   margin: auto;
+  background-color: #edf2ff;
 `;
 
 const HeaderContainer = styled.div`

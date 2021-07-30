@@ -7,10 +7,13 @@ const HideBoxContainer = styled(Button.withComponent('div'))`
   font-size: 13px;
   margin-right: 24px;
   padding: 0 12px;
+  justify-content: center;
 
   label {
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: space-around;
   }
 `;
 export default class index extends Component {
