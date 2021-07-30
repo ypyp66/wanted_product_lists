@@ -1,6 +1,11 @@
+import Button from "components/Button";
 import PageTitle from "components/Text/pageTitle";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import {
+    setItemToNotInterested,
+    setItemToRecentList,
+} from "services/localStorageWorker";
 import styled from "styled-components";
 import { getJsonData } from "utils/getJsonData";
 
@@ -13,6 +18,7 @@ class Product extends Component {
     async componentDidMount() {
         const products = await getJsonData();
         const { id } = this.props.match.params;
+        setItemToRecentList(products[id]);
         this.setState({
             products,
             id,
@@ -25,14 +31,29 @@ class Product extends Component {
             this.setState({
                 id,
             });
+            setItemToRecentList(this.state.products[id]);
         }
     }
+    getRandomInt = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+    };
+
+    checkRandomProduct = () => {
+        let randomId = this.state.id;
+        while (randomId === this.state.id) {
+            randomId = this.getRandomInt(0, 100);
+        }
+        this.props.history.push(`/product/${randomId}`);
+    };
 
     render() {
         if (!this.state.products[this.state.id]) {
             return <div>Loading</div>;
         } else {
-            const { title, brand, price } = this.state.products[this.state.id];
+            const { id } = this.state;
+            const { title, brand, price } = this.state.products[id];
             return (
                 <ProductContainer>
                     <HeaderContainer>
@@ -44,6 +65,20 @@ class Product extends Component {
                         <Price>
                             <strong>{price}</strong>원
                         </Price>
+                        <ButtonContainer>
+                            <RandomProductButton
+                                onClick={this.checkRandomProduct}
+                            >
+                                랜덤 상품 조회
+                            </RandomProductButton>
+                            <NotInterestedButton
+                                onClick={() =>
+                                    setItemToNotInterested(parseInt(id))
+                                }
+                            >
+                                관심 없음
+                            </NotInterestedButton>
+                        </ButtonContainer>
                     </ItemContainer>
                 </ProductContainer>
             );
@@ -77,7 +112,7 @@ const ItemContainer = styled.div`
     h4 {
         margin-bottom: 5%;
     }
-    margin: auto;
+    margin: 5% auto;
 `;
 
 const Title = styled.h2`
@@ -88,10 +123,6 @@ const Title = styled.h2`
     line-height: 36px;
     height: 72px;
     max-height: 72px;
-
-    :hover {
-        color: darkblue;
-    }
     /* -webkit-line-clamp: 2;
   -webkit-box-orient: vertical; */
 `;
@@ -107,4 +138,19 @@ const Price = styled.h3`
         font-weight: 600;
         font-size: 20px;
     }
+`;
+const ButtonContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+`;
+const RandomProductButton = styled(Button)`
+    width: 100px;
+    background-color: pink;
+    margin-top: 24px;
+`;
+const NotInterestedButton = styled(Button)`
+    width: 100px;
+    background-color: pink;
+    margin-top: 24px;
 `;

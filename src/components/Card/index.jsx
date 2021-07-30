@@ -5,21 +5,10 @@ import { Link } from "react-router-dom";
 import { setItemToRecentList } from "services/localStorageWorker";
 
 class Card extends Component {
-    constructor(props) {
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        const { cardId, title, brand, price } = this.props;
-        setItemToRecentList({ id: cardId, title, brand, price });
-    }
-
     render() {
         const { cardId, title, brand, price } = this.props;
         return (
             <StyledLink
-                onClick={this.handleClick}
                 to={{
                     pathname: `/product/${cardId}`,
                     state: {
