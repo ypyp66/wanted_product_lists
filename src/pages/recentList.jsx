@@ -82,8 +82,7 @@ class RecentList extends Component {
   };
 
   render() {
-    const { isChecked, brandClick, products, filteredProducts, brandLists } =
-      this.state;
+    const { isChecked, brandClick, products, filteredProducts } = this.state;
     return (
       <RecentListContainer>
         <HeaderContainer>
