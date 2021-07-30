@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { setItemToRecentList } from "services/localStorageWorker";
 
 class Card extends Component {
     render() {
-        const { cardId, title, brand, price } = this.props;
+        const { cardId, title, brand, price, handleClick } = this.props;
         return (
             <StyledLink
                 to={{
@@ -18,6 +17,7 @@ class Card extends Component {
                         price: price,
                     },
                 }}
+                onClick={(e) => handleClick(e, cardId)}
             >
                 <CardContainer>
                     <Title>{title}</Title>

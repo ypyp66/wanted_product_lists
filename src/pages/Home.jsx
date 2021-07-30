@@ -7,6 +7,7 @@ import LinkButton from 'components/LinkButton/index';
 import { getJsonData } from 'utils/getJsonData';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
+import { getNotInterested } from 'services/localStorageWorker';
 
 const HomeContainer = styled.div`
   max-width: 1080px;
@@ -27,12 +28,11 @@ class Home extends Component {
 
   async componentDidMount() {
     this._isMounted = true;
+    const notInterested = getNotInterested();
     const products = await getJsonData();
-    // TODO: not-intertest 는 필터링한 다음에 set을 해줘야할까?
-    // TODO: 어떻게 커스터마이징
     this._isMounted &&
       this.setState({
-        products,
+        products: products.filter((product) => !notInterested.includes(product.id))
       });
   }
 

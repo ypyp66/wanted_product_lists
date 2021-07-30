@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Card from "components/Card/index.jsx";
+import { getNotInterested } from "services/localStorageWorker";
+import ALERT_MESSAGE from "constants/alertMessage";
 
 const CardListContainer = styled.div`
     max-width: 1080px;
@@ -15,6 +17,13 @@ const CardListContainer = styled.div`
 `;
 
 class CardList extends Component {
+    notInterested = getNotInterested();
+    handleClick = (e, cardId) => {
+        if (!this.notInterested.includes(cardId)) return ;
+        e.preventDefault();
+        alert(ALERT_MESSAGE.CANNOT_ENTER_NO_INTERESTED_PRODUCT);
+        return;
+    }
     render() {
         const { cards } = this.props;
         return (
@@ -26,6 +35,7 @@ class CardList extends Component {
                         title={card.title}
                         brand={card.brand}
                         price={card.price}
+                        handleClick={this.handleClick}
                     />
                 ))}
             </CardListContainer>
