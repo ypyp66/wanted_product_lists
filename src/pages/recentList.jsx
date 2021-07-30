@@ -5,7 +5,8 @@ import PageTitle from 'components/Text/pageTitle';
 import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
-import SortFilter from 'components/SortFilter/index.jsx';
+
+import HideCheckBox from 'components/HideCheckBox/index';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
 
@@ -129,21 +130,10 @@ class RecentList extends Component {
           <Button width="80px" onClick={this.toggleBrandLists}>
             브랜드
           </Button>
-          <CenterDiv>
-            <CheckButton>
-              <CenterDiv>
-                <label>
-                  <input
-                    type="checkbox"
-                    value={isChecked}
-                    onChange={this.handleHideExceptItems}
-                  />
-                  관심 없는 상품 숨기기
-                </label>
-              </CenterDiv>
-            </CheckButton>
-            <SortFilter setSortKey={this.handleSortChange} />
-          </CenterDiv>
+          <HideCheckBox
+            isChecked={isChecked}
+            handleHideExceptItems={this.handleHideExceptItems}
+          />
         </FilterContainer>
         <BrandLists
           brandClick={brandClick}
