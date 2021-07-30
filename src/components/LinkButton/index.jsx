@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/Button/index.jsx';
-import { Link } from 'react-router-dom';
 
 const LinkButtonContainer = styled(Button)`
   position: fixed;

@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import CardList from "components/CardList/index";
-import PageTitle from "components/Text/pageTitle";
-import Button from "components/Button/index";
-import LinkButton from "components/LinkButton/index";
-import BrandLists from "components/BrandLists/index";
-import * as LSWorker from "services/localStorageWorker";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import CardList from 'components/CardList/index';
+import PageTitle from 'components/Text/pageTitle';
+import Button from 'components/Button/index';
+import LinkButton from 'components/LinkButton/index';
+import BrandLists from 'components/BrandLists/index';
+import SortFilter from 'components/SortFilter/index.jsx';
+import * as LSWorker from 'services/localStorageWorker';
+import { sortProductByKey } from 'services/sortProductByKey.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -31,23 +33,18 @@ class RecentList extends Component {
     brandLists: [],
     isChecked: false,
     brandClick: false,
+    brand: '',
+    sortKey: '', // '', recent, lowPrice
   };
 
   componentDidMount() {
     const products = LSWorker.getRecentList();
-    // TODO: not-intertest 는 필터링한 다음에 set을 해줘야할까?
-    // TODO: 어떻게 커스터마이징
     this.setState({
       products,
     });
   }
 
-  componentDidUpdate(_, prevState) {
-    if (prevState.brandLists !== this.state.brandLists) {
-      this.handleFilterBrand();
-      return;
-    }
-
+  componentDidUpdate() {
     console.log(this.state);
   }
 
@@ -59,9 +56,16 @@ class RecentList extends Component {
     this.setState({ brandClick: !this.state.brandClick });
   };
 
-  setBrand = (name) => {
+  setBrand = name => {
     const index = this.state.brandLists.indexOf(name);
 
+    if (name === 'all') {
+      this.setState({
+        brandLists: [],
+      });
+      this.filterProducts();
+      return;
+    }
     if (index === -1) {
       this.setState({
         brandLists: [...this.state.brandLists, name],
@@ -73,16 +77,30 @@ class RecentList extends Component {
     }
   };
 
-  handleFilterBrand = () => {
-    this.setState({
-      filteredProducts: this.state.products.filter(
-        (product) => this.state.brandLists.indexOf(product.brand) !== -1
-      ),
-    });
+  handleSortChange = sortKey => {
+    this.setState({ sortKey });
+  };
+
+  filterProducts = () => {
+    const { products, isChecked, sortKey, brandLists } = this.state;
+    const notInterested = LSWorker.getNotInterested();
+
+    return sortProductByKey(
+      products
+        .filter(product =>
+          !isChecked ? product : !notInterested.includes(product.id),
+        )
+        .filter(product =>
+          !brandLists.length ? product : brandLists.includes(product.brand),
+        ),
+      sortKey,
+    );
   };
 
   render() {
-    const { isChecked, brandClick, products, filteredProducts } = this.state;
+    const { isChecked, brandClick } = this.state;
+    const products = this.filterProducts();
+
     return (
       <RecentListContainer>
         <HeaderContainer>
@@ -95,8 +113,8 @@ class RecentList extends Component {
           <Button>
             <label
               style={{
-                display: "flex",
-                width: "100%",
+                display: 'flex',
+                width: '100%',
               }}
             >
               <input
@@ -107,13 +125,11 @@ class RecentList extends Component {
               관심 없는 상품 숨기기
             </label>
           </Button>
-          <Button width="80px">정렬</Button>
+          <SortFilter setSortKey={this.handleSortChange} />
         </FilterConatiner>
         <BrandLists brandClick={brandClick} setBrand={this.setBrand} />
 
-        <CardList
-          cards={filteredProducts.length ? filteredProducts : products}
-        />
+        <CardList cards={products} />
         <LinkButton title="상품 목록" to="/" />
       </RecentListContainer>
     );

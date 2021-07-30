@@ -51,13 +51,22 @@ export default class index extends Component {
 
     return (
       <BrandContainer>
-        {brandClick &&
-          brandLists &&
-          brandLists.map((brand, index) => (
-            <CustomButton key={index} onClick={this.handleClick} value={brand}>
-              {brand}
+        {brandClick && brandLists && (
+          <>
+            <CustomButton onClick={this.handleClick} value="all">
+              전체 목록
             </CustomButton>
-          ))}
+            {brandLists.map((brand, index) => (
+              <CustomButton
+                key={index}
+                onClick={this.handleClick}
+                value={brand}
+              >
+                {brand}
+              </CustomButton>
+            ))}
+          </>
+        )}
       </BrandContainer>
     );
   }
