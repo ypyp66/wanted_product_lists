@@ -44,6 +44,10 @@ class RecentList extends Component {
     });
   }
 
+  componentDidUpdate() {
+    console.log(this.state);
+  }
+
   handleHideExceptItems = () => {
     this.setState({ isChecked: !this.state.isChecked });
   };
@@ -55,6 +59,13 @@ class RecentList extends Component {
   setBrand = name => {
     const index = this.state.brandLists.indexOf(name);
 
+    if (name === 'all') {
+      this.setState({
+        brandLists: [],
+      });
+      this.filterProducts();
+      return;
+    }
     if (index === -1) {
       this.setState({
         brandLists: [...this.state.brandLists, name],
@@ -73,13 +84,14 @@ class RecentList extends Component {
   filterProducts = () => {
     const { products, isChecked, sortKey, brandLists } = this.state;
     const notInterested = LSWorker.getNotInterested();
+
     return sortProductByKey(
       products
         .filter(product =>
           !isChecked ? product : !notInterested.includes(product.id),
         )
         .filter(product =>
-          !brandLists.length ? product : brandLists.inclides(product.brand),
+          !brandLists.length ? product : brandLists.includes(product.brand),
         ),
       sortKey,
     );

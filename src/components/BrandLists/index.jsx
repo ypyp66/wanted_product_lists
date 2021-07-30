@@ -1,6 +1,7 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import * as LSWorker from "services/localStorageWorker";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import * as LSWorker from 'services/localStorageWorker';
+import Button from 'components/Button/index';
 
 const BrandContainer = styled.ul`
   display: flex;
@@ -10,14 +11,19 @@ const BrandContainer = styled.ul`
   overflow-x: auto;
   padding: 3px;
 
-  option {
-    box-shadow: 2px 2px 4px gray;
-    border-radius: 20px;
-    padding: 3px 10px;
-  }
-
-  option + option {
+  button + button {
     margin-left: 10px;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  background-color: white;
+  box-shadow: 2px 2px 4px gray;
+  padding: 3px 10px;
+
+  &:hover {
+    background-color: black;
+    color: white;
   }
 `;
 
@@ -30,7 +36,7 @@ export default class index extends Component {
     //중복처리
     this.setState({
       brandLists: [
-        ...new Set(LSWorker.getRecentList().map((items) => items.brand)),
+        ...new Set(LSWorker.getRecentList().map(items => items.brand)),
       ],
     });
   }
@@ -45,13 +51,22 @@ export default class index extends Component {
 
     return (
       <BrandContainer>
-        {brandClick &&
-          brandLists &&
-          brandLists.map((brand, index) => (
-            <option key={index} onClick={this.handleClick} value={`${brand}`}>
-              {brand}
-            </option>
-          ))}
+        {brandClick && brandLists && (
+          <>
+            <CustomButton onClick={this.handleClick} value="all">
+              전체 목록
+            </CustomButton>
+            {brandLists.map((brand, index) => (
+              <CustomButton
+                key={index}
+                onClick={this.handleClick}
+                value={brand}
+              >
+                {brand}
+              </CustomButton>
+            ))}
+          </>
+        )}
       </BrandContainer>
     );
   }
