@@ -67,14 +67,6 @@ class RecentList extends Component {
     }
   };
 
-  handleFilterBrand = () => {
-    this.setState({
-      filteredProducts: this.state.products.filter(
-        product => this.state.brandLists.indexOf(product.brand) !== -1,
-      ),
-    });
-  };
-
   handleSortChange = sortKey => {
     this.setState({ sortKey });
   };
