@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import * as LSWorker from 'services/localStorageWorker';
-import Button from 'components/Button/index';
+import Button from 'components/Button';
 
 const BrandContainer = styled.ul`
-  display: flex;
+  display: inline-block;
   margin-left: 24px;
   margin-top: 24px;
 
   overflow-x: auto;
-  padding: 3px;
+  padding-bottom: 12px;
+  padding-right: 12px;
 
   button + button {
     margin-left: 10px;
@@ -18,12 +19,20 @@ const BrandContainer = styled.ul`
 
 const CustomButton = styled(Button)`
   background-color: white;
+  border-radius: 20px;
   box-shadow: 2px 2px 4px gray;
   padding: 3px 10px;
 
+  ${props =>
+    props.isselected
+      && css`
+        background-color: black;
+        color: white;
+        `}
+      
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: #E3E3E3;
+    color: black;
   }
 `;
 
@@ -42,18 +51,18 @@ export default class index extends Component {
   }
 
   handleClick = ({ target }) => {
-    this.props.setBrand(target.value);
+    this.props.setSelectedBrands(target.value);
   };
 
   render() {
-    const { brandClick } = this.props;
+    const { brandClick, selectedBrand } = this.props;
     const { brandLists } = this.state;
 
     return (
       <BrandContainer>
         {brandClick && brandLists && (
           <>
-            <CustomButton onClick={this.handleClick} value="all">
+            <CustomButton onClick={this.handleClick} isselected={selectedBrand.length ? false : true} value="all">
               전체 목록
             </CustomButton>
             {brandLists.map((brand, index) => (
@@ -61,12 +70,14 @@ export default class index extends Component {
                 key={index}
                 onClick={this.handleClick}
                 value={brand}
+                isselected={selectedBrand.includes(brand)}
               >
                 {brand}
               </CustomButton>
             ))}
           </>
         )}
+
       </BrandContainer>
     );
   }
