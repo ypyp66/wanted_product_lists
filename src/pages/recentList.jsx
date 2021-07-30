@@ -7,6 +7,8 @@ import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
 import SortFilter from 'components/SortFilter/index.jsx';
 import * as LSWorker from 'services/localStorageWorker';
+import { sortProductByKey } from 'services/sortProductByKey.js';
+import { filterProduct } from 'services/filterProduct.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -41,25 +43,6 @@ class RecentList extends Component {
     this.setState({
       products,
     });
-  }
-
-  componentDidUpdate(_, prevState) {
-    if (prevState.brandLists !== this.state.brandLists) {
-      this.handleFilterBrand();
-      return;
-    }
-    if (prevState.sortKey !== this.state.sortKey) {
-      const products = this.state.filteredProducts.length
-        ? [...this.state.filteredProducts]
-        : [...this.state.products];
-      const filter = {
-        '': () => products,
-        recent: () => products.reverse(),
-        lowPrice: () => products.sort((a, b) => a.price - b.price),
-      };
-      this.setState({ filteredProducts: filter[this.state.sortKey]() });
-      return;
-    }
   }
 
   handleHideExceptItems = () => {
@@ -97,8 +80,12 @@ class RecentList extends Component {
   };
 
   render() {
-    const { isChecked, brandClick, products, filteredProducts, brandLists } =
-      this.state;
+    const { products, isChecked, brandClick, sortKey, brandLists } = this.state;
+    const newProducts = sortProductByKey(
+      filterProduct(products, isChecked, brandLists),
+      sortKey,
+    );
+
     return (
       <RecentListContainer>
         <HeaderContainer>
@@ -127,9 +114,7 @@ class RecentList extends Component {
         </FilterConatiner>
         <BrandLists brandClick={brandClick} setBrand={this.setBrand} />
 
-        <CardList
-          cards={filteredProducts.length ? filteredProducts : products}
-        />
+        <CardList cards={newProducts} />
         <LinkButton title="상품 목록" to="/" />
       </RecentListContainer>
     );
