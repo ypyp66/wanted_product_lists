@@ -9,6 +9,8 @@ import HideCheckBox from 'components/HideCheckBox/index';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
 import SortFilter from 'components/SortFilter';
+import PAGE_TITLE from 'constants/pageTitle.js';
+import ROUTES from 'constants/routesPath.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -123,7 +125,7 @@ class RecentList extends Component {
     return (
       <RecentListContainer>
         <HeaderContainer>
-          <PageTitle title="최근 조회 이력" />
+          <PageTitle title={PAGE_TITLE.RECENT_LIST} />
         </HeaderContainer>
         <FilterContainer>
           <CustomButton onClick={this.toggleBrandLists}>브랜드</CustomButton>
@@ -140,9 +142,8 @@ class RecentList extends Component {
           setSelectedBrands={this.setSelectedBrands}
           selectedBrand={selectedBrands}
         />
-
         <CardList cards={products} />
-        <LinkButton title="상품 목록" to="/" />
+        <LinkButton title={PAGE_TITLE.HOME} to={ROUTES.HOME} />
       </RecentListContainer>
     );
   }

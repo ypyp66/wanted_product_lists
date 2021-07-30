@@ -1,3 +1,4 @@
+import LS_KEY from 'constants/localStorageKey.js';
 import { localStorageHelper as LSHelper } from 'utils/localStorageHelper';
 
 // TODO: 카드를 클릭하면 recentList에 등록해야한다.
@@ -8,7 +9,7 @@ export function setItemToRecentList(item) {
     recentList.splice(existItemIndex, 1);
   }
   recentList.push(item);
-  LSHelper.setItem('recentList', {
+  LSHelper.setItem(LS_KEY.RECENT_LIST, {
     date: new Date().toLocaleDateString(),
     data: recentList,
   });
@@ -28,7 +29,7 @@ export function setItemToNotInterested(id) {
   const existItemIndex = checkAlreadyExistInNotInterested(id);
 
   if (!existItemIndex) {
-    LSHelper.setItem('notInterested', {
+    LSHelper.setItem(LS_KEY.NOT_INTERESTED, {
       date: new Date().toLocaleDateString(),
       data: [...getNotInterested(), id],
     });
@@ -40,7 +41,7 @@ export function exceptNowItem(id) {
 }
 // TODO: 조회목록 페이지에 들어가면 recentList 전부를 리턴해줘야한다.
 export function getRecentList() {
-  const recentList = LSHelper.getItem('recentList') ?? {
+  const recentList = LSHelper.getItem(LS_KEY.RECENT_LIST) ?? {
     date: '',
     data: [],
   };
@@ -49,7 +50,7 @@ export function getRecentList() {
     : [];
 }
 export function getNotInterested() {
-  const notInterestedList = LSHelper.getItem('notInterested') ?? {
+  const notInterestedList = LSHelper.getItem(LS_KEY.NOT_INTERESTED) ?? {
     date: '',
     data: [],
   };

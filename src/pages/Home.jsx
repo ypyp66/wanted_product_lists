@@ -5,6 +5,8 @@ import PageTitle from 'components/Text/pageTitle';
 import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import { getJsonData } from 'utils/getJsonData';
+import PAGE_TITLE from 'constants/pageTitle.js';
+import ROUTES from 'constants/routesPath.js';
 
 const HomeContainer = styled.div`
   max-width: 1080px;
@@ -29,9 +31,9 @@ class Home extends Component {
     // TODO: not-intertest 는 필터링한 다음에 set을 해줘야할까?
     // TODO: 어떻게 커스터마이징
     this._isMounted &&
-    this.setState({
-      products,
-    });
+      this.setState({
+        products,
+      });
   }
 
   componentWillUnmount() {
@@ -42,11 +44,11 @@ class Home extends Component {
     return (
       <HomeContainer>
         <HeaderContainer>
-          <PageTitle title="상품 목록" />
+          <PageTitle title={PAGE_TITLE.HOME} />
         </HeaderContainer>
 
         <CardList cards={this.state.products} />
-        <LinkButton title="조회 이력" to="/recentList" />
+        <LinkButton title={PAGE_TITLE.RECENT_LIST} to={ROUTES.RECENT_LIST} />
       </HomeContainer>
     );
   }
