@@ -9,6 +9,7 @@ import SortFilter from 'components/SortFilter/index.jsx';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
 import PAGE_TITLE from 'constants/pageTitle.js';
+import ROUTES from 'constants/routesPath.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -152,7 +153,7 @@ class RecentList extends Component {
           selectedBrand={selectedBrands}
         />
         <CardList cards={products} />
-        <LinkButton title={PAGE_TITLE.HOME} to="/" />
+        <LinkButton title={PAGE_TITLE.HOME} to={ROUTES.HOME} />
       </RecentListContainer>
     );
   }

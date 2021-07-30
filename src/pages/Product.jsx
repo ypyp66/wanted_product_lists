@@ -12,6 +12,7 @@ import {
 import { getJsonData } from 'utils/getJsonData';
 import { getRandomInt } from 'utils/math';
 import PAGE_TITLE from 'constants/pageTitle.js';
+import ROUTES from 'constants/routesPath.js';
 
 class Product extends Component {
   _isMounted = false;
@@ -62,7 +63,7 @@ class Product extends Component {
     ) {
       randomId = getRandomInt(0, 100);
     }
-    this.props.history.push(`/product/${randomId}`);
+    this.props.history.push(`${ROUTES.PRORUDCT}/${randomId}`);
   };
 
   onNotInterestedClick = () => {
@@ -103,7 +104,7 @@ class Product extends Component {
               </NotInterestedButton>
             </ButtonContainer>
           </ItemContainer>
-          <LinkButton title={PAGE_TITLE.RECENT_LIST} to="/recentList" />
+          <LinkButton title={PAGE_TITLE.RECENT_LIST} to={ROUTES.RECENT_LIST} />
         </ProductContainer>
       );
     }

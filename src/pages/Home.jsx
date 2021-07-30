@@ -6,6 +6,7 @@ import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import { getJsonData } from 'utils/getJsonData';
 import PAGE_TITLE from 'constants/pageTitle.js';
+import ROUTES from 'constants/routesPath.js';
 
 const HomeContainer = styled.div`
   max-width: 1080px;
@@ -47,7 +48,7 @@ class Home extends Component {
         </HeaderContainer>
 
         <CardList cards={this.state.products} />
-        <LinkButton title={PAGE_TITLE.RECENT_LIST} to="/recentList" />
+        <LinkButton title={PAGE_TITLE.RECENT_LIST} to={ROUTES.RECENT_LIST} />
       </HomeContainer>
     );
   }
