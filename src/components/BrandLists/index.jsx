@@ -19,8 +19,12 @@ const BrandContainer = styled.ul`
 const CustomButton = styled(Button)`
   background-color: white;
   box-shadow: 2px 2px 4px gray;
-  border-radius: 20px;
   padding: 3px 10px;
+
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 `;
 
 export default class index extends Component {
