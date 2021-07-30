@@ -24,15 +24,19 @@ const CustomButton = styled(Button)`
   padding: 3px 10px;
 
   ${props =>
-    props.isselected
-      && css`
-        background-color: black;
-        color: white;
-        `}
-      
+    props.isselected &&
+    css`
+      background-color: black;
+      color: white;
+    `}
+
   &:hover {
-    background-color: #E3E3E3;
+    background-color: #e3e3e3;
     color: black;
+  }
+
+  & + & {
+    margin-top: 10px;
   }
 `;
 
@@ -62,7 +66,11 @@ export default class index extends Component {
       <BrandContainer>
         {brandClick && brandLists && (
           <>
-            <CustomButton onClick={this.handleClick} isselected={selectedBrand.length ? false : true} value="all">
+            <CustomButton
+              onClick={this.handleClick}
+              isselected={selectedBrand.length ? false : true}
+              value="all"
+            >
               전체 목록
             </CustomButton>
             {brandLists.map((brand, index) => (
@@ -77,7 +85,6 @@ export default class index extends Component {
             ))}
           </>
         )}
-
       </BrandContainer>
     );
   }

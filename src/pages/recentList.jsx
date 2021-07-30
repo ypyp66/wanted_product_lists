@@ -5,10 +5,10 @@ import PageTitle from 'components/Text/pageTitle';
 import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
-
 import HideCheckBox from 'components/HideCheckBox/index';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
+import SortFilter from 'components/SortFilter';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -26,16 +26,11 @@ const FilterContainer = styled(HeaderContainer)`
   button + button {
     margin-left: 20px;
   }
-`;
 
-const CheckButton = styled(Button)`
-  margin-right: 24px;
-  padding: 0 12px;
-`;
-
-const CenterDiv = styled.div`
-  display: flex;
-  align-items: center;
+  div {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 class RecentList extends Component {
@@ -130,10 +125,13 @@ class RecentList extends Component {
           <Button width="80px" onClick={this.toggleBrandLists}>
             브랜드
           </Button>
-          <HideCheckBox
-            isChecked={isChecked}
-            handleHideExceptItems={this.handleHideExceptItems}
-          />
+          <div>
+            <HideCheckBox
+              isChecked={isChecked}
+              handleHideExceptItems={this.handleHideExceptItems}
+            />
+            <SortFilter setSortKey={this.handleSortChange} />
+          </div>
         </FilterContainer>
         <BrandLists
           brandClick={brandClick}
