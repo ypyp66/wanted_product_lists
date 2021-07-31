@@ -162,6 +162,4 @@ class RecentList extends Component {
   }
 }
 
-RecentList.propTypes = {};
-
 export default RecentList;

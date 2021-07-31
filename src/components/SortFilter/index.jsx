@@ -1,10 +1,7 @@
 import Button from 'components/Button';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-
-// 1. noValue => 정렬 초기화
-// 2. recent => 조회순으로 정렬
-// 3. lowPrice => 낮은 가격순 정렬
+import PropTypes from 'prop-types';
 
 const SortedFilterContainer = styled.div`
   display: flex;
@@ -36,5 +33,10 @@ class SortFilter extends Component {
     );
   }
 }
+
+SortFilter.propTypes = {
+  handleSortChange: PropTypes.func,
+  closeModal: PropTypes.func,
+};
 
 export default SortFilter;

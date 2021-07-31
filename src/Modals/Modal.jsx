@@ -1,5 +1,6 @@
 import React, { Component, createRef } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ModalContainer = styled.div`
   display: ${props => (props.show ? 'flex' : 'none')};
@@ -36,3 +37,8 @@ export default class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  show: PropTypes.bool,
+  closeModal: PropTypes.func,
+};

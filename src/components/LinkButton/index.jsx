@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from 'components/Button/index.jsx';
+import PropTypes from 'prop-types';
 
 const LinkButtonContainer = styled(Button)`
   position: fixed;
@@ -20,6 +21,9 @@ class LinkButton extends Component {
   }
 }
 
-LinkButton.propTypes = {};
+LinkButton.propTypes = {
+  to: PropTypes.string,
+  title: PropTypes.string,
+};
 
 export default LinkButton;
