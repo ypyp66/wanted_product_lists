@@ -15,5 +15,3 @@ https://focused-dubinsky-5c4000.netlify.app
 - filter 수정
 - sort
 - 리팩토링
-  - 상수화
-  - 파일구조 변경
