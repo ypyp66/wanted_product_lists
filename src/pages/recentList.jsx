@@ -14,33 +14,6 @@ import ROUTES from 'constants/routesPath.js';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import SORT_KEY from 'constants/sortKey.js';
 
-const RecentListContainer = styled.div`
-  max-width: 1080px;
-  margin: auto;
-`;
-
-const HeaderContainer = styled.div`
-  margin: 24px 24px 0 24px;
-`;
-
-const CustomButton = styled(Button)`
-  min-width: 80px;
-`;
-
-const FilterContainer = styled(HeaderContainer)`
-  display: flex;
-  justify-content: space-between;
-
-  button + button {
-    margin-left: 20px;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-`;
-
 class RecentList extends Component {
   _isMounted = false;
 
@@ -57,11 +30,7 @@ class RecentList extends Component {
   componentDidMount() {
     this._isMounted = true;
     const products = LSWorker.getRecentList();
-
-    this._isMounted &&
-      this.setState({
-        products,
-      });
+    this._isMounted && this.setState({ products });
   }
 
   componentWillUnmount() {
@@ -76,37 +45,30 @@ class RecentList extends Component {
     this.setState({ brandClick: !this.state.brandClick });
   };
 
-  setSelectedBrands = name => {
-    const index = this.state.selectedBrands.indexOf(name);
-
-    if (name === 'all') {
-      this.setState({
-        selectedBrands: [],
-      });
-      this.filterProducts();
-      return;
-    }
-    if (index === -1) {
-      this.setState({
-        selectedBrands: [...this.state.selectedBrands, name],
-      });
-    } else {
-      this.setState({
-        selectedBrands: this.state.selectedBrands.filter(
-          (_, idx) => idx !== index,
-        ),
-      });
-    }
-  };
-
   handleSortChange = sortKey => {
     this.setState({ sortKey });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isModalShow: false });
+  };
+
+  setSelectedBrands = name => {
+    const { selectedBrands } = this.state;
+    let newSelectedBrands;
+    if (name === 'all') {
+      newSelectedBrands = [];
+    } else if (!selectedBrands.includes(name)) {
+      newSelectedBrands = [...selectedBrands, name];
+    } else {
+      newSelectedBrands = selectedBrands.filter(brand => brand !== name);
+    }
+    this.setState({ selectedBrands: newSelectedBrands });
   };
 
   filterProducts = () => {
     const { products, isChecked, sortKey, selectedBrands } = this.state;
     const notInterested = LSWorker.getNotInterested();
-
     return sortProductByKey(
       products
         .filter(product =>
@@ -149,13 +111,10 @@ class RecentList extends Component {
         />
         <CardList cards={products} />
         <LinkButton title={PAGE_TITLE.HOME} to={ROUTES.HOME} />
-        <Modal
-          show={this.state.isModalShow}
-          closeModal={() => this.setState({ isModalShow: false })}
-        >
+        <Modal show={this.state.isModalShow} closeModal={this.handleCloseModal}>
           <SortFilter
             handleSortChange={this.handleSortChange}
-            closeModal={() => this.setState({ isModalShow: false })}
+            closeModal={this.handleCloseModal}
           />
         </Modal>
       </RecentListContainer>
@@ -164,3 +123,30 @@ class RecentList extends Component {
 }
 
 export default RecentList;
+
+const RecentListContainer = styled.div`
+  max-width: 1080px;
+  margin: auto;
+`;
+
+const HeaderContainer = styled.div`
+  margin: 24px 24px 0 24px;
+`;
+
+const CustomButton = styled(Button)`
+  min-width: 80px;
+`;
+
+const FilterContainer = styled(HeaderContainer)`
+  display: flex;
+  justify-content: space-between;
+
+  button + button {
+    margin-left: 20px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
