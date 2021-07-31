@@ -93,25 +93,16 @@ const BottomContainer = styled.div`
 `;
 
 const Title = styled.h2`
+  display: -webkit-box;
   overflow: hidden;
   font-weight: 600;
   text-overflow: ellipsis;
   line-height: 18px;
   height: 36px;
   max-height: 36px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
-
-// const Brand = styled.div`
-//   display: flex;
-//   align-items: center;
-
-//   h4 {
-//     margin: 0;
-//     margin-left: 4px;
-//     font-size: 12px;
-//     color: #2d2d2d;
-//   }
-// `;
 
 const Price = styled.h3`
   color: #3e72fb;

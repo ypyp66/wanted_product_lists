@@ -7,8 +7,7 @@ import ALERT_MESSAGE from 'constants/alertMessage';
 
 const CardListContainer = styled.div`
   max-width: 1080px;
-  padding-top: 32px;
-
+  padding: 32px 0;
   display: grid;
   // ANCHOR: 반응형처럼 만들어줌
   grid-template-columns: repeat(auto-fill, minmax(auto, 260px));
