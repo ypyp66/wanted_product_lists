@@ -1,6 +1,7 @@
 import Button from 'components/Button';
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const HideBoxContainer = styled(Button.withComponent('div'))`
   min-width: 180px;
@@ -16,7 +17,8 @@ const HideBoxContainer = styled(Button.withComponent('div'))`
     justify-content: space-around;
   }
 `;
-export default class index extends Component {
+
+export default class HideCheckBox extends Component {
   render() {
     const { isChecked, handleHideExceptItems } = this.props;
     return (
@@ -33,3 +35,8 @@ export default class index extends Component {
     );
   }
 }
+
+HideCheckBox.propTypes = {
+  isChecked: PropTypes.bool,
+  handleHideExceptItems: PropTypes.func,
+};

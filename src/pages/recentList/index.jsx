@@ -1,44 +1,18 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import CardList from 'components/CardList/index';
 import PageTitle from 'components/Text/pageTitle';
 import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
 import HideCheckBox from 'components/HideCheckBox/index';
+import SortFilter from 'components/SortFilter';
+import Modal from 'Modals';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
-import SortFilter from 'components/SortFilter';
-import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
-import Modal from 'Modals/Modal';
-
-const RecentListContainer = styled.div`
-  max-width: 1080px;
-  margin: auto;
-`;
-
-const HeaderContainer = styled.div`
-  margin: 24px 24px 0 24px;
-`;
-
-const CustomButton = styled(Button)`
-  min-width: 80px;
-`;
-
-const FilterContainer = styled(HeaderContainer)`
-  display: flex;
-  justify-content: space-between;
-
-  button + button {
-    margin-left: 20px;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-`;
+import PAGE_TITLE from 'constants/pageTitle.js';
+import SORT_KEY from 'constants/sortKey.js';
+import * as Styles from './styles';
 
 class RecentList extends Component {
   _isMounted = false;
@@ -49,18 +23,14 @@ class RecentList extends Component {
     isChecked: false,
     brandClick: false,
     brand: '',
-    sortKey: 'recent',
+    sortKey: SORT_KEY.RECENT,
     isModalShow: false,
   };
 
   componentDidMount() {
     this._isMounted = true;
     const products = LSWorker.getRecentList();
-
-    this._isMounted &&
-      this.setState({
-        products,
-      });
+    this._isMounted && this.setState({ products });
   }
 
   componentWillUnmount() {
@@ -75,37 +45,30 @@ class RecentList extends Component {
     this.setState({ brandClick: !this.state.brandClick });
   };
 
-  setSelectedBrands = name => {
-    const index = this.state.selectedBrands.indexOf(name);
-
-    if (name === 'all') {
-      this.setState({
-        selectedBrands: [],
-      });
-      this.filterProducts();
-      return;
-    }
-    if (index === -1) {
-      this.setState({
-        selectedBrands: [...this.state.selectedBrands, name],
-      });
-    } else {
-      this.setState({
-        selectedBrands: this.state.selectedBrands.filter(
-          (_, idx) => idx !== index,
-        ),
-      });
-    }
-  };
-
   handleSortChange = sortKey => {
     this.setState({ sortKey });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ isModalShow: false });
+  };
+
+  setSelectedBrands = name => {
+    const { selectedBrands } = this.state;
+    let newSelectedBrands;
+    if (name === 'all') {
+      newSelectedBrands = [];
+    } else if (!selectedBrands.includes(name)) {
+      newSelectedBrands = [...selectedBrands, name];
+    } else {
+      newSelectedBrands = selectedBrands.filter(brand => brand !== name);
+    }
+    this.setState({ selectedBrands: newSelectedBrands });
   };
 
   filterProducts = () => {
     const { products, isChecked, sortKey, selectedBrands } = this.state;
     const notInterested = LSWorker.getNotInterested();
-
     return sortProductByKey(
       products
         .filter(product =>
@@ -125,22 +88,24 @@ class RecentList extends Component {
     const products = this.filterProducts();
 
     return (
-      <RecentListContainer>
-        <HeaderContainer>
+      <Styles.RecentListContainer>
+        <Styles.HeaderContainer>
           <PageTitle title={PAGE_TITLE.RECENT_LIST} />
-        </HeaderContainer>
-        <FilterContainer>
-          <CustomButton onClick={this.toggleBrandLists}>브랜드</CustomButton>
+        </Styles.HeaderContainer>
+        <Styles.FilterContainer>
+          <Styles.CustomButton onClick={this.toggleBrandLists}>
+            브랜드
+          </Styles.CustomButton>
           <div>
             <HideCheckBox
               isChecked={isChecked}
               handleHideExceptItems={this.handleHideExceptItems}
             />
             <Button onClick={() => this.setState({ isModalShow: true })}>
-              {sortKey === 'recent' ? '최근 조회 순' : '낮은 가격 순'}
+              {sortKey === SORT_KEY.RECENT ? '최근 조회 순' : '낮은 가격 순'}
             </Button>
           </div>
-        </FilterContainer>
+        </Styles.FilterContainer>
         <BrandLists
           brandClick={brandClick}
           setSelectedBrands={this.setSelectedBrands}
@@ -148,20 +113,15 @@ class RecentList extends Component {
         />
         <CardList cards={products} />
         <LinkButton title={PAGE_TITLE.HOME} to={ROUTES.HOME} />
-        <Modal
-          show={this.state.isModalShow}
-          closeModal={() => this.setState({ isModalShow: false })}
-        >
+        <Modal show={this.state.isModalShow} closeModal={this.handleCloseModal}>
           <SortFilter
             handleSortChange={this.handleSortChange}
-            closeModal={() => this.setState({ isModalShow: false })}
+            closeModal={this.handleCloseModal}
           />
         </Modal>
-      </RecentListContainer>
+      </Styles.RecentListContainer>
     );
   }
 }
-
-RecentList.propTypes = {};
 
 export default RecentList;

@@ -1,8 +1,8 @@
 import { HashRouter as Router, Route } from 'react-router-dom';
 import React, { Component } from 'react';
-import Home from 'pages/Home';
-import Product from 'pages/Product';
-import RecentList from 'pages/recentList.jsx';
+import Home from 'pages/Home/index';
+import Product from 'pages/Product/index';
+import RecentList from 'pages/recentList/index.jsx';
 import ROUTES from 'constants/routesPath.js';
 
 class AppRouter extends Component {

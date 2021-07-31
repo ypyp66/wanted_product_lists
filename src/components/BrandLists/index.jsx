@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import * as LSWorker from 'services/localStorageWorker';
 import Button from 'components/Button';
+import PropTypes from 'prop-types';
 
 const BrandContainer = styled.ul`
   display: inline-block;
@@ -42,7 +43,7 @@ const CustomButton = styled(Button)`
   }
 `;
 
-export default class index extends Component {
+export default class BrandLists extends Component {
   state = {
     brandLists: [],
   };
@@ -91,3 +92,9 @@ export default class index extends Component {
     );
   }
 }
+
+BrandLists.propTypes = {
+  brandClick: PropTypes.bool,
+  setSelectedBrands: PropTypes.func,
+  selectedBrand: PropTypes.array,
+};
