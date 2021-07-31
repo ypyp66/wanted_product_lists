@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import LinkButton from 'components/LinkButton';
 import PageTitle from 'components/Text/pageTitle';
-import {
-  checkAlreadyExistInNotInterested,
-  setItemToNotInterested,
-  setItemToRecentList,
-} from 'services/localStorageWorker';
+import * as LSWorker from 'services/localStorageWorker';
 import { getJsonData } from 'utils/getJsonData';
 import { getRandomInt } from 'utils/math';
 import PAGE_TITLE from 'constants/pageTitle.js';
@@ -28,12 +24,14 @@ class Product extends Component {
     this._isMounted = true;
     const products = await getJsonData();
     const { id } = this.props.match.params;
-    setItemToRecentList(products[id]);
+    LSWorker.setItemToRecentList(products[id]);
     this._isMounted &&
       this.setState({
         products,
         id,
-        isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
+        isNotInterested: LSWorker.checkAlreadyExistInNotInterested(
+          parseInt(id),
+        ),
       });
   }
 
@@ -44,9 +42,11 @@ class Product extends Component {
       const { id } = this.props.match.params;
       this.setState({
         id,
-        isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
+        isNotInterested: LSWorker.checkAlreadyExistInNotInterested(
+          parseInt(id),
+        ),
       });
-      setItemToRecentList(this.state.products[id]);
+      LSWorker.setItemToRecentList(this.state.products[id]);
     }
   }
 
@@ -58,7 +58,7 @@ class Product extends Component {
     let randomId = this.state.id;
     while (
       randomId === this.state.id ||
-      checkAlreadyExistInNotInterested(parseInt(randomId))
+      LSWorker.checkAlreadyExistInNotInterested(parseInt(randomId))
     ) {
       randomId = getRandomInt(0, 100);
     }
@@ -67,9 +67,9 @@ class Product extends Component {
 
   onNotInterestedClick = () => {
     const { id } = this.state;
-    setItemToNotInterested(parseInt(id));
+    LSWorker.setItemToNotInterested(parseInt(id));
     this.setState({
-      isNotInterested: checkAlreadyExistInNotInterested(parseInt(id)),
+      isNotInterested: LSWorker.checkAlreadyExistInNotInterested(parseInt(id)),
     });
   };
 
