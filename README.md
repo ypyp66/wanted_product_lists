@@ -43,5 +43,9 @@ https://focused-dubinsky-5c4000.netlify.app
 - svg 이미지 구현
 - 전체 디자인 수정
 
+## 박연빈
+- 이력 조회 페이지 구현
+- 브랜드 필터 구현
+
 # 4. 스크린샷
 ![recentList image](https://user-images.githubusercontent.com/65903404/127741596-ea230c8d-b10b-4bac-a96b-eefa520feda7.png)
