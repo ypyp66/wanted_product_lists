@@ -71,6 +71,7 @@ class Product extends Component {
     this.setState({
       isNotInterested: LSWorker.checkAlreadyExistInNotInterested(parseInt(id)),
     });
+    this.checkRandomProduct();
   };
 
   render() {
