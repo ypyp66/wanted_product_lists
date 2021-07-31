@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import CardList from 'components/CardList/index';
 import PageTitle from 'components/Text/pageTitle';
 import Button from 'components/Button/index';
@@ -7,12 +6,18 @@ import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
 import HideCheckBox from 'components/HideCheckBox/index';
 import SortFilter from 'components/SortFilter';
-import Modal from 'Modals/Modal';
+import Modal from 'Modals';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
 import ROUTES from 'constants/routesPath.js';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import SORT_KEY from 'constants/sortKey.js';
+import {
+  RecentListContainer,
+  HeaderContainer,
+  FilterContainer,
+  CustomButton,
+} from './styles';
 
 class RecentList extends Component {
   _isMounted = false;
@@ -123,30 +128,3 @@ class RecentList extends Component {
 }
 
 export default RecentList;
-
-const RecentListContainer = styled.div`
-  max-width: 1080px;
-  margin: auto;
-`;
-
-const HeaderContainer = styled.div`
-  margin: 24px 24px 0 24px;
-`;
-
-const CustomButton = styled(Button)`
-  min-width: 80px;
-`;
-
-const FilterContainer = styled(HeaderContainer)`
-  display: flex;
-  justify-content: space-between;
-
-  button + button {
-    margin-left: 20px;
-  }
-
-  div {
-    display: flex;
-    align-items: center;
-  }
-`;

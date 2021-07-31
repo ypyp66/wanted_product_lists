@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import CardList from 'components/CardList/index';
 import PageTitle from 'components/Text/pageTitle';
 import LinkButton from 'components/LinkButton/index';
@@ -7,16 +6,7 @@ import { getJsonData } from 'utils/getJsonData';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
 import { getNotInterested } from 'services/localStorageWorker';
-
-const HomeContainer = styled.div`
-  max-width: 1080px;
-  margin: auto;
-`;
-
-const HeaderContainer = styled.div`
-  margin-left: 24px;
-  margin-top: 24px;
-`;
+import { HomeContainer, HeaderContainer } from './styles';
 
 class Home extends Component {
   _isMounted = false;

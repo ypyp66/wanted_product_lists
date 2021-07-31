@@ -1,18 +1,6 @@
 import React, { Component, createRef } from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
-const ModalContainer = styled.div`
-  display: ${props => (props.show ? 'flex' : 'none')};
-  background-color: rgba(200, 200, 200, 0.6);
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  align-items: center;
-  justify-content: center;
-`;
+import { ModalDeemed } from './styles';
 
 export default class Modal extends Component {
   constructor(props) {
@@ -27,13 +15,9 @@ export default class Modal extends Component {
   render() {
     const { show } = this.props;
     return (
-      <ModalContainer
-        ref={this.modalRef}
-        onClick={this.handleClick}
-        show={show}
-      >
+      <ModalDeemed ref={this.modalRef} onClick={this.handleClick} show={show}>
         {this.props.children}
-      </ModalContainer>
+      </ModalDeemed>
     );
   }
 }
