@@ -6,12 +6,13 @@ import Button from 'components/Button/index';
 import LinkButton from 'components/LinkButton/index';
 import BrandLists from 'components/BrandLists/index';
 import HideCheckBox from 'components/HideCheckBox/index';
+import SortFilter from 'components/SortFilter';
+import Modal from 'Modals/Modal';
 import * as LSWorker from 'services/localStorageWorker';
 import { sortProductByKey } from 'services/sortProductByKey.js';
-import SortFilter from 'components/SortFilter';
-import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
-import Modal from 'Modals/Modal';
+import PAGE_TITLE from 'constants/pageTitle.js';
+import SORT_KEY from 'constants/sortKey.js';
 
 const RecentListContainer = styled.div`
   max-width: 1080px;
@@ -49,7 +50,7 @@ class RecentList extends Component {
     isChecked: false,
     brandClick: false,
     brand: '',
-    sortKey: 'recent',
+    sortKey: SORT_KEY.RECENT,
     isModalShow: false,
   };
 
@@ -137,7 +138,7 @@ class RecentList extends Component {
               handleHideExceptItems={this.handleHideExceptItems}
             />
             <Button onClick={() => this.setState({ isModalShow: true })}>
-              {sortKey === 'recent' ? '최근 조회 순' : '낮은 가격 순'}
+              {sortKey === SORT_KEY.RECENT ? '최근 조회 순' : '낮은 가격 순'}
             </Button>
           </div>
         </FilterContainer>
