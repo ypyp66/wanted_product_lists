@@ -6,7 +6,7 @@ import { getJsonData } from 'utils/getJsonData';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
 import { getNotInterested } from 'services/localStorageWorker';
-import { HomeContainer, HeaderContainer } from './styles';
+import * as Styles from './styles';
 
 class Home extends Component {
   _isMounted = false;
@@ -33,14 +33,13 @@ class Home extends Component {
 
   render() {
     return (
-      <HomeContainer>
-        <HeaderContainer>
+      <Styles.HomeContainer>
+        <Styles.HeaderContainer>
           <PageTitle title={PAGE_TITLE.HOME} />
-        </HeaderContainer>
-
+        </Styles.HeaderContainer>
         <CardList cards={this.state.products} />
         <LinkButton title={PAGE_TITLE.RECENT_LIST} to={ROUTES.RECENT_LIST} />
-      </HomeContainer>
+      </Styles.HomeContainer>
     );
   }
 }

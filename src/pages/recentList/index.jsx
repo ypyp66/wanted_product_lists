@@ -12,12 +12,7 @@ import { sortProductByKey } from 'services/sortProductByKey.js';
 import ROUTES from 'constants/routesPath.js';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import SORT_KEY from 'constants/sortKey.js';
-import {
-  RecentListContainer,
-  HeaderContainer,
-  FilterContainer,
-  CustomButton,
-} from './styles';
+import * as Styles from './styles';
 
 class RecentList extends Component {
   _isMounted = false;
@@ -93,12 +88,14 @@ class RecentList extends Component {
     const products = this.filterProducts();
 
     return (
-      <RecentListContainer>
-        <HeaderContainer>
+      <Styles.RecentListContainer>
+        <Styles.HeaderContainer>
           <PageTitle title={PAGE_TITLE.RECENT_LIST} />
-        </HeaderContainer>
-        <FilterContainer>
-          <CustomButton onClick={this.toggleBrandLists}>브랜드</CustomButton>
+        </Styles.HeaderContainer>
+        <Styles.FilterContainer>
+          <Styles.CustomButton onClick={this.toggleBrandLists}>
+            브랜드
+          </Styles.CustomButton>
           <div>
             <HideCheckBox
               isChecked={isChecked}
@@ -108,7 +105,7 @@ class RecentList extends Component {
               {sortKey === SORT_KEY.RECENT ? '최근 조회 순' : '낮은 가격 순'}
             </Button>
           </div>
-        </FilterContainer>
+        </Styles.FilterContainer>
         <BrandLists
           brandClick={brandClick}
           setSelectedBrands={this.setSelectedBrands}
@@ -122,7 +119,7 @@ class RecentList extends Component {
             closeModal={this.handleCloseModal}
           />
         </Modal>
-      </RecentListContainer>
+      </Styles.RecentListContainer>
     );
   }
 }
