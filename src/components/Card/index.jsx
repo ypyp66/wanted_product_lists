@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import {
-  ChanelIcon,
-  GucciIcon,
-  LouisVuittonIcon,
-  NikeIcon,
-  StoneIslandIcon,
-} from 'res/svgIcons';
+import Brand from 'components/Brand/index.jsx';
 
 class Card extends Component {
   render() {
@@ -31,22 +25,7 @@ class Card extends Component {
           <Title>{title}</Title>
           <Divider />
           <BottomContainer>
-            <Brand>
-              {brand === '나이키' ? (
-                <NikeIcon />
-              ) : brand === '구찌' ? (
-                <GucciIcon />
-              ) : brand === '루이비통' ? (
-                <LouisVuittonIcon />
-              ) : brand === '스톤아일랜드' ? (
-                <StoneIslandIcon />
-              ) : brand === '샤넬' ? (
-                <ChanelIcon />
-              ) : (
-                <></>
-              )}
-              <h4>{brand}</h4>
-            </Brand>
+            <Brand brand={brand} />
             <Price>
               <strong>{price.toLocaleString()}</strong>원
             </Price>
@@ -122,17 +101,17 @@ const Title = styled.h2`
   max-height: 36px;
 `;
 
-const Brand = styled.div`
-  display: flex;
-  align-items: center;
+// const Brand = styled.div`
+//   display: flex;
+//   align-items: center;
 
-  h4 {
-    margin: 0;
-    margin-left: 4px;
-    font-size: 12px;
-    color: #2d2d2d;
-  }
-`;
+//   h4 {
+//     margin: 0;
+//     margin-left: 4px;
+//     font-size: 12px;
+//     color: #2d2d2d;
+//   }
+// `;
 
 const Price = styled.h3`
   color: #3e72fb;
