@@ -11,17 +11,19 @@ import { getJsonData } from 'utils/getJsonData';
 import { getRandomInt } from 'utils/math';
 import PAGE_TITLE from 'constants/pageTitle.js';
 import ROUTES from 'constants/routesPath.js';
-import {
-  ProductContainer,
-  HeaderContainer,
-  ItemContainer,
-  Title,
-  Brand,
-  Price,
-  ButtonContainer,
-  RandomProductButton,
-  NotInterestedButton,
-} from './styles';
+// import {
+//   ProductContainer,
+//   HeaderContainer,
+//   ItemContainer,
+//   Title,
+//   Brand,
+//   Price,
+//   ButtonContainer,
+//   RandomProductButton,
+//   NotInterestedButton,
+// } from './styles';
+
+import * as Styles from './styles';
 
 class Product extends Component {
   _isMounted = false;
@@ -90,31 +92,31 @@ class Product extends Component {
       const { id, isNotInterested } = this.state;
       const { title, brand, price } = this.state.products[id];
       return (
-        <ProductContainer>
-          <HeaderContainer>
+        <Styles.ProductContainer>
+          <Styles.HeaderContainer>
             <PageTitle title={PAGE_TITLE.PRORUDCT_DETAIL} />
-          </HeaderContainer>
-          <ItemContainer>
-            <Title>{title}</Title>
-            <Brand>{brand}</Brand>
-            <Price>
+          </Styles.HeaderContainer>
+          <Styles.ItemContainer>
+            <Styles.Title>{title}</Styles.Title>
+            <Styles.Brand>{brand}</Styles.Brand>
+            <Styles.Price>
               <strong>{price.toLocaleString()}</strong>원
-            </Price>
-            <ButtonContainer>
-              <RandomProductButton onClick={this.checkRandomProduct}>
+            </Styles.Price>
+            <Styles.ButtonContainer>
+              <Styles.RandomProductButton onClick={this.checkRandomProduct}>
                 랜덤 상품 조회
-              </RandomProductButton>
-              <NotInterestedButton
+              </Styles.RandomProductButton>
+              <Styles.NotInterestedButton
                 onClick={this.onNotInterestedClick}
                 isnotinterested={isNotInterested}
                 disabled={isNotInterested}
               >
                 {isNotInterested ? '관심 없음' : '관심 없음'}
-              </NotInterestedButton>
-            </ButtonContainer>
-          </ItemContainer>
+              </Styles.NotInterestedButton>
+            </Styles.ButtonContainer>
+          </Styles.ItemContainer>
           <LinkButton title={PAGE_TITLE.RECENT_LIST} to={ROUTES.RECENT_LIST} />
-        </ProductContainer>
+        </Styles.ProductContainer>
       );
     }
   }
