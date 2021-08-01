@@ -40,8 +40,8 @@ https://focused-dubinsky-5c4000.netlify.app
 ## 이시형
 
 - 제품 상세 페이지 구현
-- svg 이미지 구현
-- 전체 디자인 수정
+- card 구현
+- 전체 디자인 수정 및 svg 이미지 구현
 
 ## 박연빈
 - 이력 조회 페이지 구현
